@@ -109,7 +109,7 @@ router.post( '/community/:question', function ( req, res ) {
 
     console.log( "Question => ", question )
 
-    if ( reply.trim() == "" ) {
+    if ( reply.keyword.trim() == "" ) {
         alert( "Please Enter a valid reply" );
     }
     else {
