@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <%- include('includes/head',{ title : "Help page" }) %>
+
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="/styles/bootstrap.min.css">
+
+        <!-- Boostrap JS -->
+        <script src="/scripts/bootstrap.bundle.min.js"></script>
+
+        <!-- jQuery -->
+        <script src="/scripts/jquery-3.6.0.min.js"></script>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="/styles/help.css">
+
+        <!-- font awesome -->
+        <script src="https://kit.fontawesome.com/1bfe00020e.js" crossorigin="anonymous"></script>
+
+        <!-- google fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@700&family=Caveat:wght@400;500;600;700&family=Courgette&display=swap"
+            rel="stylesheet">
+
+</head>
+
+<body>
+
+    <header class="container" id="header">
+        <div class="row">
+            <a href="" target="_blank" rel="noopener noreferrer" class="header_home_link col-6">Farm Easy</a>
+            <div class="dropdown col-6">
+                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                    id="user_btn">
+                    <i class="fas fa-user"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="tel:+919314077000">93140xxxxx</a></li>
+                    <li><a class="dropdown-item" href="mailto:farmeasy@gmail.com">Mail Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="row">
+
+        <!-- side bar -->
+        <div class="side_bar col-lg-3">
+            <div class="row">
+                <div class="webpage icon_div" value="https://www.youtube.com/embed/3qjOc_rfFHw">
+                    <img src="/images/soil_test_kit.jpg" alt="" srcset="" class="icon_img">
+                    Soil Quality Test
+
+                </div>
+                <div class="emi_calculator icon_div" value="https://www.youtube.com/embed/Ltc4ZzQN_vE">
+
+                    <img src="/images/harvesting.jpg" alt="" srcset="" class="icon_img">
+                    Sustainable Agriculture Practices
+
+                </div>
+                <div class="calculator icon_div" value="https://www.youtube.com/embed/sZkKZ_t0qDo">
+
+                    <img src="/images/intro_to_agro.png" alt="" srcset="" class="icon_img">
+                    Introduction to Agriculture
+
+                </div>
+            </div>
+        </div>
+
+        <!-- project section -->
+        <div class="projects_section col-lg-9">
+
+            <iframe src="https://www.youtube.com/embed/3qjOc_rfFHw" title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen id="project_display"></iframe>
+        </div>
+
+    </main>
+
+    <!-- script -->
+    <script src="/scripts/help.js"></script>
+</body>
+
+</html>

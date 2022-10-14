@@ -1,0 +1,103 @@
+/* 
+font-family: 'Alegreya Sans', sans-serif;
+font-family: 'Caveat', cursive;
+font-family: 'Courgette', cursive;
+*/
+
+body {
+	background-color: whitesmoke;
+}
+
+a {
+	text-decoration: none;
+	color: black !important;
+}
+
+/* header */
+#header .row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 6px 0;
+}
+
+.header_home_link {
+	width: fit-content;
+	font-size: 48px;
+	font-weight: 700;
+	font-family: "Caveat", cursive;
+}
+
+.dropdown {
+	width: fit-content;
+}
+
+#user_btn {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	align-items: center;
+	/* color: #4361ee; */
+	border: none;
+}
+
+#header .fas {
+	font-size: 2rem;
+}
+
+main,
+main .row {
+	margin: 0px !important;
+}
+
+.icon_div {
+	font-size: 1.5rem;
+	width: fit-content;
+	cursor: pointer;
+}
+
+.icon_img {
+	width: 40px;
+}
+
+.side_bar {
+	margin: 20px 0;
+}
+
+.side_bar > div {
+	display: flex;
+	justify-content: space-between;
+	gap: 20px;
+}
+
+#project_display {
+	width: 100%;
+	height: 750px;
+}
+
+.projects_section{
+	padding: 0px !important;
+}
+
+@media (max-width: 992px) {
+	/* header */
+	#header .row {
+		justify-content: space-between;
+	}
+
+	.header_home_link {
+		font-size: 35px;
+	}
+}
+
+@media (max-width: 450px) {
+	/* header */
+	#user_name,
+	#user_name::after {
+		display: none !important;
+	}
+
+	#user_btn {
+		gap: 0px;
+	}
+}

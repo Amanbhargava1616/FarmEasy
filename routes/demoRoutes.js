@@ -109,38 +109,48 @@ router.post( '/community/:question', function ( req, res ) {
 
     console.log( "Question => ", question )
 
-    var docRef = db.collection( "usersQuestions" ).doc( question )
-    docRef.get().then( ( doc ) => {
+    if ( reply.trim() == "" ) {
+        alert( "Please Enter a valid reply" );
+    }
+    else {
 
-        console.log( "doc.data() => ", doc.data() )
+        var docRef = db.collection( "usersQuestions" ).doc( question )
+        docRef.get().then( ( doc ) => {
 
-        newdata = doc.data();
+            console.log( "doc.data() => ", doc.data() )
 
-        objectLength = Object.keys( newdata ).length
-        objectLength += 1;
-        ans = "ans" + objectLength;
+            newdata = doc.data();
 
-        newdata[ ans ] = reply.keyword;
+            objectLength = Object.keys( newdata ).length
+            objectLength += 1;
+            ans = "ans" + objectLength;
 
-        console.log( newdata );
+            newdata[ ans ] = reply.keyword;
+
+            console.log( newdata );
 
 
 
-        // database updated 
-        db.collection( "usersQuestions" ).doc( question ).set( newdata )
-            .then( () => {
-                console.log( "Document successfully Updated!" );
+            // database updated 
+            db.collection( "usersQuestions" ).doc( question ).set( newdata )
+                .then( () => {
+                    console.log( "Document successfully Updated!" );
 
-                res.redirect( '/community' )
-            } )
-            .catch( ( error ) => {
-                console.error( "Error Updating document: ", error );
-            } );
+                    res.redirect( '/community' )
+                } )
+                .catch( ( error ) => {
+                    console.error( "Error Updating document: ", error );
+                } );
 
-    } ).catch( ( error ) => {
-        console.log( "Error getting document:", error );
-    } );
+        } ).catch( ( error ) => {
+            console.log( "Error getting document:", error );
+        } );
+    }
 
+} )
+
+router.get( "/help", function ( req, res ) {
+    res.render( 'help' );
 } )
 
 
