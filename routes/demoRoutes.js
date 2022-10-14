@@ -2,6 +2,8 @@ const { render } = require( 'ejs' );
 const express = require( 'express' );
 
 
+var langs = require( 'langs' );
+
 
 const router = express.Router();
 
@@ -18,6 +20,8 @@ router.get( '/', function ( req, res ) {
 
 // router to show all the questions and answers
 router.get( '/community', async function ( req, res ) {
+
+    langs.all();
 
     // reading the data of a questions
     const snapshot = await db.collection( 'usersQuestions' )
@@ -67,6 +71,15 @@ router.get( "/community/:keyword", async function ( req, res ) {
 //     res.render( 'selectedquestions', { tempDoc: tempKeywordDoc } );
 //     // res.render( '401' )
 // } )
+
+
+// router for languages page
+router.get( '/languages', function ( req, res ) {
+
+    console.log( langs.all() )
+    res.render( 'languages', { languages: langs.all() } )
+
+} )
 
 
 // router to add a question
@@ -129,6 +142,8 @@ router.post( '/community/:question', function ( req, res ) {
     } );
 
 } )
+
+
 
 
 module.exports = router;

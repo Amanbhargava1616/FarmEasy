@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('includes/head',{ title : "Language page" }) %>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="/styles/language.css">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="/styles/bootstrap.min.css">
+
+        <!-- jQuery -->
+        <script src="/scripts/jquery-3.6.0.min.js"></script>
+
+        <!-- Boostrap JS -->
+        <script src="/scripts/bootstrap.min.js"></script>
+
+        <!-- script JS -->
+        <script src="/scripts/language.js"></script>
+
+</head>
+
+<body>
+
+        <label for="language">Choose a language</label>
+
+        <select name="language" id="language">
+            <% for(const language of languages) { %>
+
+                <option value="<%= language[1] %>">
+                    <%= language.local %> (<%= language.name %>)
+                </option>
+
+                <% } %>
+        </select>
+
+        <button id="submit">submit</button>
+</body>
+
+</html>
