@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('includes/head',{ title : "Selected Question page" }) %>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="/styles/community.css">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="/styles/bootstrap.min.css">
+
+        <!-- jQuery -->
+        <script src="/scripts/jquery-3.6.0.min.js"></script>
+
+        <!-- Boostrap JS -->
+        <script src="/scripts/bootstrap.min.js"></script>
+
+        <!-- script -->
+        <script src="/scripts/keyword.js" defer></script>
+</head>
+
+<body>
+
+    <header>
+    </header>
+    <main>
+        <div class="accordion" id="accordionExample">
+            <% var id=0; %>
+                <% for(const questionsAnswers of tempDoc) { %>
+                    <%- include('includes/accordian-item.ejs', {accordian : questionsAnswers, id : id++ }) %>
+                        <% } %>
+    </main>
+
+
+
+
+    <!-- script -->
+</body>
+
+</html>

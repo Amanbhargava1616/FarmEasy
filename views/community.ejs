@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('includes/head',{ title : "Disscussion page" }) %>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/styles/community.css">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/styles/bootstrap.min.css">
+    
+    <!-- jQuery -->
+    <script src="/scripts/jquery-3.6.0.min.js"></script>
+    
+    <!-- Boostrap JS -->
+    <script src="/scripts/bootstrap.min.js"></script>
+
+    <!-- script -->
+    <script src="/scripts/keyword.js" defer></script>
+</head>
+
+<body>
+
+    <header>
+        <div class="container-fluid">
+
+            <form>
+                <div class="row">
+
+                    <label for="keyword" class="form-label">How can we help you?</label>
+                </div>
+                <div class="row">
+
+                    <input type="text" name="keyword" id="keyword" class="form-control"
+                        placeholder="Type keyword to find answers">
+                </div>
+                <div class="row header_text">
+                    You can also browse the question below to find what you are looking for.
+                </div>
+            </form>
+        </div>
+    </header>
+    <main>
+        <div class="accordion" id="accordionExample">
+            <% var id=0; %>
+                <% for(const questionsAnswers of tempDoc) { %>
+                    <%- include('includes/accordian-item.ejs', {accordian : questionsAnswers, id : id++ }) %>
+                        <% } %>
+    </main>
+
+    <footer>
+        <form action="/community" method="post">
+            <div class="row">
+
+                <label for="keyword" class="form-label">Having Some problem?</label>
+            </div>
+            <div class="row">
+
+                <input type="text" name="keyword" id="keyword" class="form-control"
+                    placeholder="Share your question with us">
+            </div>
+
+            <button type="submit">Post</button>
+        </form>
+    </footer>
+
+
+
+
+    <!-- script -->
+</body>
+
+</html>

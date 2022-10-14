@@ -1,0 +1,35 @@
+<div class="accordion-item shadow p-3 mb-3 bg-body rounded">
+    <h2 class="accordion-header" id="<%= id %> ">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#<%= id %> "
+            aria-expanded="true" aria-controls="collapseOne">
+            <h5>
+                <%= accordian.id + " ?" %>
+            </h5>
+        </button>
+    </h2>
+    <div id="<%= id %>" class="accordion-collapse collapse show" aria-labelledby="<%= id %> "
+        data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <ul>
+
+                <% for (const key in accordian.Data) { %>
+                    <% if (accordian.Data.hasOwnProperty.call(accordian.Data, key)) { %>
+                        <% const answers=accordian.Data[key]; %>
+                            <li>
+                                <%= answers %>
+                            </li>
+                            <% } %>
+                                <% } %>
+            </ul>
+            <form action="/community/<%= accordian.id %>" method="post">
+                <div class="replyRow">
+
+                    <input type="text" name="keyword" id="keyword" class="form-control"
+                        placeholder="Share your response with us">
+                    <button type="submit" class="replyBtn">Post</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
