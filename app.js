@@ -5,8 +5,13 @@ const express = require( 'express' );
 // connecting to routing files
 const demoRoutes = require( './routes/demoRoutes' );
 
-// connecting to database
-// const db = require( './data/firebaseConfig' );
+// deploying
+let port=3000;
+if(process.env.PORT)
+{
+    port=process.env.PORT
+}
+
 
 const app = express();
 
@@ -29,4 +34,4 @@ app.use( function ( error, req, res, next ) {
 } );
 
 
-app.listen( 3000 );
+app.listen( port );
