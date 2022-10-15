@@ -19,21 +19,24 @@
 </head>
 
 <body>
-    <form action="/login" method="post">
-        <label for="soil">Choose a language</label>
 
-        <select name="soil" id="soil">
-            <% for(const soil of soils) { %>
+    <%- include('includes/nav-bar') %>
 
-                <option value="<%= soil.id %>">
-                    <%= soil.id %>
-                </option>
+        <form action="/login" method="post">
+            <label for="soil">Choose a language</label>
 
-                <% } %>
-        </select>
+            <select name="soil" id="soil">
+                <% for(const soil of soils) { %>
 
-        <button type="submit">Submit</button>
-    </form>
+                    <option value="<%= soil.id %>">
+                        <%= soil.id %>
+                    </option>
+
+                    <% } %>
+            </select>
+
+            <button type="submit">Submit</button>
+        </form>
 </body>
 
 </html>

@@ -22,20 +22,20 @@
 
 <body>
 
-    <header>
-    </header>
-    <main>
-        <div class="accordion" id="accordionExample">
-            <% var id=0; %>
-                <% for(const questionsAnswers of tempDoc) { %>
-                    <%- include('includes/accordian-item.ejs', {accordian : questionsAnswers, id : id++ }) %>
-                        <% } %>
-    </main>
+    <%- include('includes/nav-bar') %>
+
+        <main>
+            <div class="accordion" id="accordionExample">
+                <% var id=0; %>
+                    <% for(const questionsAnswers of tempDoc) { %>
+                        <%- include('includes/accordian-item.ejs', {accordian : questionsAnswers, id : id++ }) %>
+                            <% } %>
+        </main>
 
 
 
 
-    <!-- script -->
+        <!-- script -->
 </body>
 
 </html>

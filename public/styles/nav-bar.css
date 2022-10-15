@@ -1,0 +1,28 @@
+#navbar {
+	display: flex !important;
+	height: 70px;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+a.navLinks {
+	text-decoration: none !important ;
+	display: block;
+	width: fit-content !important;
+	color: aliceblue !important;
+	font-size: 1.5rem;
+	align-items: center;
+	display: grid;
+	place-content: center;
+}
+
+.xyz {
+	display: grid;
+	place-content: center;
+	background-color: #09bf6d;
+}
+
+a:hover {
+	text-decoration: underline;
+    text-decoration-color: white;
+}

@@ -5,7 +5,7 @@
     <%- include('includes/head',{ title : "Language page" }) %>
 
         <!-- CSS -->
-        <link rel="stylesheet" href="/styles/language.css">
+        <link rel="stylesheet" href="/styles/languages.css">
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="/styles/bootstrap.min.css">
@@ -19,23 +19,36 @@
         <!-- script JS -->
         <script src="/scripts/language.js"></script>
 
+
 </head>
 
 <body>
 
-    <label for="language">Choose a language</label>
+    <!-- backdrop -->
+    <div id="backdrop"></div>
 
-    <select name="language" id="language">
-        <% for(const language of languages) { %>
 
-            <option value="<%= language[1] %>">
-                <%= language.local %> (<%= language.name %>)
-            </option>
+    <!-- aside -->
+    <aside class="moral" id="moral_overlay">
+        <P>Select your Language </P>
+        <select name="language" id="language">
+            <% for(const language of languages) { %>
 
-            <% } %>
-    </select>
+                <option value="<%= language[1] %>">
+                    <%= language.local %> (<%= language.name %>)
+                </option>
 
-    <button id="submit">submit</button>
+                <% } %>
+        </select>
+
+        <button id="submit">submit</button>
+    </aside>
+
+    <div>
+
+
+
+    </div>
 </body>
 
 </html>

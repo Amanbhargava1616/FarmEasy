@@ -18,20 +18,26 @@
         <script src="/scripts/bootstrap.min.js"></script>
 
 
+
+
 </head>
 
 <body>
 
-    <div>
-        <% for (const key in cropList) { %>
-            <% if (cropList.hasOwnProperty.call(cropList, key)) { %>
-                <% const cropItem=cropList[key]; %>
+    <%- include('includes/nav-bar') %>
 
-                    <%- include('includes/crop-item.ejs', crop=cropItem) %>
-                        <% } %>
+
+        <div>
+            <% for (const key in cropList) { %>
+                <% if (cropList.hasOwnProperty.call(cropList, key)) { %>
+                    <% const cropItem=cropList[key]; %>
+
+                        <%- include('includes/crop-item.ejs', crop=cropItem) %>
+                            <hr>
                             <% } %>
+                                <% } %>
 
-    </div>
+        </div>
 </body>
 
 </html>

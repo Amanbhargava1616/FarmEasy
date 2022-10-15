@@ -16,7 +16,7 @@ const router = express.Router();
 const imports = require( '../data/firebaseConfig' );
 
 router.get( '/', function ( req, res ) {
-    res.redirect( 'community' );
+    res.redirect( '/languages' );
 } )
 
 // router to show all the questions and answers

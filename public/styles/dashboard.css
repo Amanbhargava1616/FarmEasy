@@ -1,4 +1,14 @@
+body{
+    padding: 10px 20px ;
+}
+
 .lPortion{
     display: grid;
     place-content: center;
+    font-size: 3rem;
+}
+
+.cropItem{
+    text-transform: capitalize;
+
 }
