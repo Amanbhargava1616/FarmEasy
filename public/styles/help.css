@@ -75,7 +75,7 @@ main .row {
 	height: 750px;
 }
 
-.projects_section{
+.projects_section {
 	padding: 0px !important;
 }
 
@@ -102,7 +102,7 @@ main .row {
 	}
 
 	#project_display {
-	width: 100%;
-	height: 300px;
-}
+		width: 100%;
+		height: 300px;
+	}
 }
