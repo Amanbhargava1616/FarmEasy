@@ -11,9 +11,6 @@ const router = express.Router();
 // Connecting to database
 const db = require( "../data/firebaseConfig" );
 
-const windowchange = require( "../util/chnageWindow" )
-
-
 router.get( '/', function ( req, res ) {
     res.redirect( 'community' );
 } )
@@ -80,6 +77,90 @@ router.get( '/languages', function ( req, res ) {
     res.render( 'languages', { languages: langs.all() } )
 
 } )
+
+
+// router for login page
+router.get( '/login', async function ( req, res ) {
+
+    // reading the data of a questions
+    const snapshot2 = await db.collection( 'Soil' )
+
+    snapshot2.get().then( ( querySnapshot ) => {
+        const tempDocSoils = []
+        querySnapshot.forEach( ( doc ) => {
+            console.log( doc.id, " => ", doc.data() );
+
+            // pushing data in n array
+            tempDocSoils.push( { id: doc.id, Data: doc.data() } )
+        } )
+        console.log( "tempDocSoils =>", tempDocSoils )
+        res.render( 'login', { soils: tempDocSoils } );
+    } )
+
+} )
+
+
+// router post method
+router.post( '/login', function ( req, res ) {
+    const soilType = req.body;
+    console.log( soilType.soil )
+
+    var docRef = db.collection( "Soil" ).doc( soilType.soil )
+    docRef.get().then( ( doc ) => {
+
+        req.session.cropsList = doc.data().crops
+
+        req.session.isAuthenticated = true;                                          // flag for autentication
+
+        req.session.save( function () {
+
+            res.redirect( '/dashboard' )
+        } )
+
+    } );
+} )
+
+async function croplisting( element ) {
+    var docRef = await db.collection( "crops" ).doc( element )
+    docRef.get().then( ( doc ) => {
+        
+        // checking if crop is there if yes storing the data into a array
+        if ( doc.exists ) {
+            
+            var crop = { cropName: doc.id, cropData: doc.data() };
+            return Promise.resolve(crop);
+        }
+    } );
+}
+
+
+router.get( '/dashboard', function ( req, res ) {
+
+    if ( !req.session.isAuthenticated ) {
+        return res.status( 401 ).render( '401' )
+
+    }
+
+    req.session.cropsList.forEach( async element => {
+
+        var response =await croplisting( element );
+
+        console.log( response );
+
+        // const responseData = await response.json();
+
+        // console.log( "=", responseData );
+        // crop.then( ( response ) => response.json() ).then( ( data ) => console.log( data ) );
+
+
+    } );
+
+    // res.render( 'dashboard', { cropList: req.session.cropsPresented } )
+} )
+
+
+
+
 
 
 // router to add a question

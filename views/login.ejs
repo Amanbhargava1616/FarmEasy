@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('includes/head',{ title : "Login page" }) %>
+
+        <!-- CSS -->
+        <!-- <link rel="stylesheet" href="/styles/community.css"> -->
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="/styles/bootstrap.min.css">
+
+        <!-- jQuery -->
+        <script src="/scripts/jquery-3.6.0.min.js"></script>
+
+        <!-- Boostrap JS -->
+        <script src="/scripts/bootstrap.min.js"></script>
+
+        <!-- script -->
+        <!-- <script src="/scripts/keyword.js" defer></script> -->
+</head>
+
+<body>
+    <form action="/login" method="post">
+        <label for="soil">Choose a language</label>
+
+        <select name="soil" id="soil">
+            <% for(const soil of soils) { %>
+
+                <option value="<%= soil.id %>">
+                    <%= soil.id %>
+                </option>
+
+                <% } %>
+        </select>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+
+</html>

@@ -5,15 +5,40 @@ const express = require( 'express' );
 // connecting to routing files
 const demoRoutes = require( './routes/demoRoutes' );
 
+// connecting to database
+const db = require( './data/firebaseConfig' );
+
+
 // deploying
-let port=3000;
-if(process.env.PORT)
-{
-    port=process.env.PORT
+let port = 3000;
+if ( process.env.PORT ) {
+    port = process.env.PORT
 }
 
 
 const app = express();
+
+
+// for session integration
+const session = require( 'express-session' );
+
+
+const { FirestoreStore } = require( '@google-cloud/connect-firestore' );                     // third party package for storing session in firestore
+
+
+
+const sessionStore = new FirestoreStore( {                           // constructor to configure the session
+    dataset: db
+} );
+
+
+app.use( session( {                                                 // to use session
+    secret: "super-secret",
+    resave: false,                                                  // to not resave new sessions from same user
+    saveUninitialized: false,
+    store: sessionStore                                             // where to store session data
+
+} ) );
 
 
 app.set( 'view engine', 'ejs' );       // Activate ejs engine

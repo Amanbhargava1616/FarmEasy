@@ -1,0 +1,25 @@
+<div class="cropItem row">
+    <div class="col-4 lPortion">
+        <p class="cropName">
+            <%= crop.cropName %>
+        </p>
+        <div class="cropImg">
+            <img src="" alt="">
+        </div>
+    </div>
+    <div class="col-8 rPortion">
+
+        <% for (const key in crop.cropData) { %>
+            <% if (crop.cropData.hasOwnProperty.call(crop.cropData, key)) {%>
+                <% const element=crop.cropData[key];%>
+                    <h3>
+                        <%- key %> :
+                    </h3>
+                    <p>
+                        <% element %>
+                    </p>
+                    <% } %>
+                        <% } %>
+    </div>
+
+</div>

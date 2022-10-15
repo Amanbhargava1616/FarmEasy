@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('includes/head',{ title : "Disscussion page" }) %>
+
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="/styles/bootstrap.min.css">
+
+        <!-- jQuery -->
+        <script src="/scripts/jquery-3.6.0.min.js"></script>
+
+        <!-- Boostrap JS -->
+        <script src="/scripts/bootstrap.min.js"></script>
+
+
+</head>
+
+<body>
+
+
+    <% for(const crop of cropList) { %>
+        <%- include('includes/crop-item.ejs', {crop : crop}) %>
+            <% } %>
+</body>
+
+</html>
