@@ -2,7 +2,7 @@ header,
 footer {
 	display: grid;
 	place-content: center;
-	background-color: #6f4dfb;
+	background-image: linear-gradient(to bottom right, #57cc99, #c7f9cc);
 	padding: 20px 0 25px;
 }
 
@@ -44,13 +44,17 @@ button {
 	align-self: center;
 }
 
+.accordion-button {
+	color: #0db236 !important;
+}
+
 .replyBtn {
 	width: 100px !important;
 	height: 40px;
 	background-color: transparent;
-	border: 2px solid #6f4dfb;
+	border: 2px solid #57cc99;
 	border-radius: 15px !important;
-	color: #6f4dfb;
+	color: #57cc99;
 }
 
 .replyRow {
@@ -61,6 +65,10 @@ button {
 
 .replyRow > input {
 	width: 800px;
+}
+
+ul {
+	list-style-type: none;
 }
 
 @media (max-width: 64rem) {

@@ -1,22 +1,21 @@
 <div class="cropItem row">
-    <div class="col-4 lPortion">
+    <div class="col-2 lPortion">
         <p class="cropName">
             <%= crop.cropName %>
         </p>
         <div class="cropImg">
-            <img src="" alt="">
+            <img src="javascript:window.open(window.clickTag)" alt="">
         </div>
     </div>
-    <div class="col-8 rPortion">
+    <div class="col-10 rPortion">
 
         <% for (const key in crop.cropData) { %>
-            <% if (crop.cropData.hasOwnProperty.call(crop.cropData, key)) {%>
+            <% if (crop.cropData.hasOwnProperty.call(crop.cropData, key)&&key!="image" ) {%>
                 <% const element=crop.cropData[key];%>
-                    <h3>
-                        <%- key %> :
-                    </h3>
                     <p>
-                        <% element %>
+                        <h5><%- key %> :</h5>
+
+                        <%= element %>
                     </p>
                     <% } %>
                         <% } %>

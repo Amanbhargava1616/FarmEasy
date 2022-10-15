@@ -1,6 +1,5 @@
 var admin = require( "firebase-admin" );
 
-
 var serviceAccount = require( "./serviceAccountKeys.json" );
 
 admin.initializeApp( {
@@ -8,5 +7,10 @@ admin.initializeApp( {
 } );
 
 const db = admin.firestore();
+const storage = admin.storage();
 
-module.exports = db;
+
+module.exports = {
+    db: db,
+    storage: storage
+};

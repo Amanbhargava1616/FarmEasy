@@ -5,9 +5,8 @@ const express = require( 'express' );
 // connecting to routing files
 const demoRoutes = require( './routes/demoRoutes' );
 
-// connecting to database
-const db = require( './data/firebaseConfig' );
-
+// connection to database and firestore cloud
+const imports = require( './data/firebaseConfig' );
 
 // deploying
 let port = 3000;
@@ -28,7 +27,7 @@ const { FirestoreStore } = require( '@google-cloud/connect-firestore' );        
 
 
 const sessionStore = new FirestoreStore( {                           // constructor to configure the session
-    dataset: db
+    dataset: imports.db
 } );
 
 

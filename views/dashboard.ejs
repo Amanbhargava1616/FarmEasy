@@ -2,11 +2,14 @@
 <html lang="en">
 
 <head>
-    <%- include('includes/head',{ title : "Disscussion page" }) %>
+    <%- include('includes/head',{ title : "Dashboard page" }) %>
 
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="/styles/bootstrap.min.css">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="/styles/dashboard.css">
 
         <!-- jQuery -->
         <script src="/scripts/jquery-3.6.0.min.js"></script>
@@ -19,10 +22,16 @@
 
 <body>
 
+    <div>
+        <% for (const key in cropList) { %>
+            <% if (cropList.hasOwnProperty.call(cropList, key)) { %>
+                <% const cropItem=cropList[key]; %>
 
-    <% for(const crop of cropList) { %>
-        <%- include('includes/crop-item.ejs', {crop : crop}) %>
-            <% } %>
+                    <%- include('includes/crop-item.ejs', crop=cropItem) %>
+                        <% } %>
+                            <% } %>
+
+    </div>
 </body>
 
 </html>

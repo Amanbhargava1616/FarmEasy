@@ -1,0 +1,4 @@
+.lPortion{
+    display: grid;
+    place-content: center;
+}

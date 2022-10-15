@@ -1,15 +1,19 @@
+var admin = require( "firebase-admin" );
 const { render } = require( 'ejs' );
 const express = require( 'express' );
 
-
 var langs = require( 'langs' );
 
+const store = require( "store2" );
+
+// importing multer
+const multer = require( 'multer' );
 
 const router = express.Router();
 
 
-// Connecting to database
-const db = require( "../data/firebaseConfig" );
+// connection to database and firestore cloud
+const imports = require( '../data/firebaseConfig' );
 
 router.get( '/', function ( req, res ) {
     res.redirect( 'community' );
@@ -21,7 +25,7 @@ router.get( '/community', async function ( req, res ) {
     langs.all();
 
     // reading the data of a questions
-    const snapshot = await db.collection( 'usersQuestions' )
+    const snapshot = await imports.db.collection( 'usersQuestions' )
 
     snapshot.get().then( ( querySnapshot ) => {
         const tempDoc = []
@@ -45,7 +49,7 @@ router.get( "/community/:keyword", async function ( req, res ) {
     console.log( "keyword =>", keyword );
 
     // reading the data of a questions
-    const snapshot = await db.collection( 'usersQuestions' )
+    const snapshot = await imports.db.collection( 'usersQuestions' )
 
     snapshot.get().then( ( querySnapshot ) => {
         tempKeywordDoc = []
@@ -83,7 +87,7 @@ router.get( '/languages', function ( req, res ) {
 router.get( '/login', async function ( req, res ) {
 
     // reading the data of a questions
-    const snapshot2 = await db.collection( 'Soil' )
+    const snapshot2 = await imports.db.collection( 'Soil' )
 
     snapshot2.get().then( ( querySnapshot ) => {
         const tempDocSoils = []
@@ -105,7 +109,7 @@ router.post( '/login', function ( req, res ) {
     const soilType = req.body;
     console.log( soilType.soil )
 
-    var docRef = db.collection( "Soil" ).doc( soilType.soil )
+    var docRef = imports.db.collection( "Soil" ).doc( soilType.soil )
     docRef.get().then( ( doc ) => {
 
         req.session.cropsList = doc.data().crops
@@ -121,41 +125,46 @@ router.post( '/login', function ( req, res ) {
 } )
 
 async function croplisting( element ) {
-    var docRef = await db.collection( "crops" ).doc( element )
-    docRef.get().then( ( doc ) => {
+    let crop = {}
+    var docRef = await imports.db.collection( "crops" ).doc( element )
+    crop = await docRef.get().then( async ( doc ) => {
 
         // checking if crop is there if yes storing the data into a array
         if ( doc.exists ) {
-
-            var crop = { cropName: doc.id, cropData: doc.data() };
-            return crop;
+            cr = { cropName: doc.id, cropData: doc.data() };
+            return cr
         }
-    } );
+    } )
+    return crop;
 }
 
 
-router.get( '/dashboard', function ( req, res ) {
+router.get( '/dashboard', async function ( req, res ) {
 
     if ( !req.session.isAuthenticated ) {
         return res.status( 401 ).render( '401' )
 
     }
 
-    req.session.cropsList.forEach( async element => {
 
-        var response = croplisting( element ).then( ( response ) => response.json );
+    await req.session.cropsList.forEach( async element => {
 
-        console.log( response );
-
-        // const responseData = await response.json();
-
-        // console.log( "=", responseData );
-        // crop.then( ( response ) => response.json() ).then( ( data ) => console.log( data ) );
-
+        key = JSON.stringify( await croplisting( element ) );
+        if ( key !== undefined ) {
+            key = JSON.parse( key )
+            console.log( key )
+            store( element, key );
+        }
 
     } );
 
-    // res.render( 'dashboard', { cropList: req.session.cropsPresented } )
+    // console.log( store.getAll() )
+
+    arr = store.getAll()
+
+
+
+    res.render( 'dashboard', cropList = arr )
 } )
 
 
@@ -171,7 +180,7 @@ router.post( '/community', function ( req, res ) {
 
 
     // database updated 
-    db.collection( "usersQuestions" ).doc( userQuestion.keyword ).set( {} )
+    imports.db.collection( "usersQuestions" ).doc( userQuestion.keyword ).set( {} )
         .then( () => {
             console.log( "Document successfully Updated!" );
 
@@ -195,7 +204,7 @@ router.post( '/community/:question', function ( req, res ) {
     }
     else {
 
-        var docRef = db.collection( "usersQuestions" ).doc( question )
+        var docRef = imports.db.collection( "usersQuestions" ).doc( question )
         docRef.get().then( ( doc ) => {
 
             console.log( "doc.data() => ", doc.data() )
@@ -213,7 +222,7 @@ router.post( '/community/:question', function ( req, res ) {
 
 
             // database updated 
-            db.collection( "usersQuestions" ).doc( question ).set( newdata )
+            imports.db.collection( "usersQuestions" ).doc( question ).set( newdata )
                 .then( () => {
                     console.log( "Document successfully Updated!" );
 

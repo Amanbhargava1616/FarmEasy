@@ -100,4 +100,9 @@ main .row {
 	#user_btn {
 		gap: 0px;
 	}
+
+	#project_display {
+	width: 100%;
+	height: 300px;
+}
 }
