@@ -22,7 +22,7 @@
 
     <%- include('includes/nav-bar') %>
 
-        <form action="/login" method="post">
+        <form action="/login" method="post" class="form">
             <label for="soil">Choose a language</label>
 
             <select name="soil" id="soil">
@@ -35,7 +35,7 @@
                     <% } %>
             </select>
 
-            <button type="submit">Submit</button>
+            <button type="submit" id="submit">Submit</button>
         </form>
 </body>
 
