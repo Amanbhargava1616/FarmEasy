@@ -123,12 +123,12 @@ router.post( '/login', function ( req, res ) {
 async function croplisting( element ) {
     var docRef = await db.collection( "crops" ).doc( element )
     docRef.get().then( ( doc ) => {
-        
+
         // checking if crop is there if yes storing the data into a array
         if ( doc.exists ) {
-            
+
             var crop = { cropName: doc.id, cropData: doc.data() };
-            return Promise.resolve(crop);
+            return crop;
         }
     } );
 }
@@ -143,7 +143,7 @@ router.get( '/dashboard', function ( req, res ) {
 
     req.session.cropsList.forEach( async element => {
 
-        var response =await croplisting( element );
+        var response = croplisting( element ).then( ( response ) => response.json );
 
         console.log( response );
 
