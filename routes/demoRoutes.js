@@ -15,9 +15,12 @@ const router = express.Router();
 // connection to database and firestore cloud
 const imports = require( '../data/firebaseConfig' );
 
+
+// opening Page
 router.get( '/', function ( req, res ) {
     res.redirect( '/languages' );
 } )
+
 
 // router to show all the questions and answers
 router.get( '/community', async function ( req, res ) {
@@ -42,6 +45,8 @@ router.get( '/community', async function ( req, res ) {
 } )
 
 
+
+// router to search a keyword
 router.get( "/community/:keyword", async function ( req, res ) {
     var keyword = req.params.keyword;
     keyword = keyword.replace( /[^a-zA-Z ]/g, "" );
@@ -74,6 +79,7 @@ router.get( "/community/:keyword", async function ( req, res ) {
 // } )
 
 
+
 // router for languages page
 router.get( '/languages', function ( req, res ) {
 
@@ -81,6 +87,7 @@ router.get( '/languages', function ( req, res ) {
     res.render( 'languages', { languages: langs.all() } )
 
 } )
+
 
 
 // router for login page
@@ -104,7 +111,7 @@ router.get( '/login', async function ( req, res ) {
 } )
 
 
-// router post method
+// router post method for login page
 router.post( '/login', function ( req, res ) {
     const soilType = req.body;
     console.log( soilType.soil )
@@ -124,6 +131,8 @@ router.post( '/login', function ( req, res ) {
     } );
 } )
 
+
+// function for reading the crops from soil
 async function croplisting( element ) {
     let crop = {}
     var docRef = await imports.db.collection( "crops" ).doc( element )
@@ -139,6 +148,8 @@ async function croplisting( element ) {
 }
 
 
+
+// router to dashboard 
 router.get( '/dashboard', async function ( req, res ) {
 
     if ( !req.session.isAuthenticated ) {
@@ -239,10 +250,19 @@ router.post( '/community/:question', function ( req, res ) {
 
 } )
 
+
+
+// router to help page
 router.get( "/help", function ( req, res ) {
     res.render( 'help' );
 } )
 
+
+
+// router to weather page
+// router.get( "/weather", function ( req, res ) {
+//     res.render( 'weather' );
+// } )
 
 
 

@@ -28,6 +28,11 @@ a:hover {
 	text-decoration-color: white;
 }
 
+#marquee{
+	font-size: 1.5rem;
+	color: red;
+}
+
 @media (max-width: 440px) {
 	#navbar {
 		display: block;
