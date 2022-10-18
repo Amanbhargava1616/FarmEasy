@@ -1,4 +1,5 @@
 // const { render } = require( 'ejs' );
+const { json } = require( 'express' );
 const express = require( 'express' );
 
 var langs = require( 'langs' );
@@ -215,7 +216,7 @@ router.get( '/dashboard', async function ( req, res ) {
     await req.session.cropsList.forEach( async element => {
 
         var docRef = await imports.db.collection( "crops" ).doc( element )
-        cropData = await docRef.get().then( async ( doc ) => {
+        crop = await docRef.get().then( async ( doc ) => {
 
             // checking if crop is there if yes storing the data into a array
             if ( doc.exists ) {
@@ -224,11 +225,10 @@ router.get( '/dashboard', async function ( req, res ) {
             }
         } )
 
-        if ( cropData != undefined ) {
+        if ( crop !== undefined ) {
 
-            store( element, cropData )
+            console.log( crop )
         }
-
 
     } );
 
