@@ -163,7 +163,7 @@ router.get( '/dashboard', async function ( req, res ) {
         key = JSON.stringify( await croplisting( element ) );
         if ( key !== undefined ) {
             key = JSON.parse( key )
-            console.log( key )
+            console.log( "key =>", key )
             store( element, key );
         }
 
