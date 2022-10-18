@@ -1,13 +1,13 @@
-var admin = require( "firebase-admin" );
-const { render } = require( 'ejs' );
+// const { render } = require( 'ejs' );
 const express = require( 'express' );
 
 var langs = require( 'langs' );
 
 const store = require( "store2" );
 
-// importing multer
-const multer = require( 'multer' );
+
+const cookieParser = require( 'cookie-parser' )
+
 
 const router = express.Router();
 
@@ -19,6 +19,15 @@ const imports = require( '../data/firebaseConfig' );
 // opening Page
 router.get( '/', function ( req, res ) {
     res.redirect( '/languages' );
+} )
+
+
+// router for languages page
+router.get( '/languages', function ( req, res ) {
+
+    console.log( langs.all() )
+    res.render( 'languages', { languages: langs.all() } )
+
 } )
 
 
@@ -77,109 +86,6 @@ router.get( "/community/:keyword", async function ( req, res ) {
 //     res.render( 'selectedquestions', { tempDoc: tempKeywordDoc } );
 //     // res.render( '401' )
 // } )
-
-
-
-// router for languages page
-router.get( '/languages', function ( req, res ) {
-
-    console.log( langs.all() )
-    res.render( 'languages', { languages: langs.all() } )
-
-} )
-
-
-
-// router for login page
-router.get( '/login', async function ( req, res ) {
-
-    // reading the data of a questions
-    const snapshot2 = await imports.db.collection( 'Soil' )
-
-    snapshot2.get().then( ( querySnapshot ) => {
-        const tempDocSoils = []
-        querySnapshot.forEach( ( doc ) => {
-            console.log( doc.id, " => ", doc.data() );
-
-            // pushing data in n array
-            tempDocSoils.push( { id: doc.id, Data: doc.data() } )
-        } )
-        console.log( "tempDocSoils =>", tempDocSoils )
-        res.render( 'login', { soils: tempDocSoils } );
-    } )
-
-} )
-
-
-// router post method for login page
-router.post( '/login', function ( req, res ) {
-    const soilType = req.body;
-    console.log( soilType.soil )
-
-    var docRef = imports.db.collection( "Soil" ).doc( soilType.soil )
-    docRef.get().then( ( doc ) => {
-
-        req.session.cropsList = doc.data().crops
-
-        req.session.isAuthenticated = true;                                          // flag for autentication
-
-        req.session.save( function () {
-
-            res.redirect( '/dashboard' )
-        } )
-
-    } );
-} )
-
-
-// function for reading the crops from soil
-async function croplisting( element ) {
-    let crop = {}
-    var docRef = await imports.db.collection( "crops" ).doc( element )
-    crop = await docRef.get().then( async ( doc ) => {
-
-        // checking if crop is there if yes storing the data into a array
-        if ( doc.exists ) {
-            cr = { cropName: doc.id, cropData: doc.data() };
-            return cr
-        }
-    } )
-    return crop;
-}
-
-
-
-// router to dashboard 
-router.get( '/dashboard', async function ( req, res ) {
-
-    if ( !req.session.isAuthenticated ) {
-        return res.status( 401 ).render( '401' )
-
-    }
-
-
-    await req.session.cropsList.forEach( async element => {
-
-        key = JSON.stringify( await croplisting( element ) );
-        if ( key !== undefined ) {
-            key = JSON.parse( key )
-            console.log( key )
-            store( element, key );
-        }
-
-    } );
-
-    // console.log( store.getAll() )
-
-    arr = store.getAll()
-
-
-
-    res.render( 'dashboard', cropList = arr )
-} )
-
-
-
 
 
 
@@ -252,17 +158,100 @@ router.post( '/community/:question', function ( req, res ) {
 
 
 
+// router for login page
+router.get( '/login', async function ( req, res ) {
+
+    // reading the data of a questions
+    const snapshot2 = await imports.db.collection( 'Soil' )
+
+    snapshot2.get().then( ( querySnapshot ) => {
+        const tempDocSoils = []
+        querySnapshot.forEach( ( doc ) => {
+            console.log( doc.id, " => ", doc.data() );
+
+            // pushing data in n array
+            tempDocSoils.push( { id: doc.id, Data: doc.data() } )
+        } )
+        console.log( "tempDocSoils =>", tempDocSoils )
+        res.render( 'login', { soils: tempDocSoils } );
+    } )
+
+} )
+
+
+// router post method for login page
+router.post( '/login', function ( req, res ) {
+    const soilType = req.body;
+    console.log( soilType.soil )
+
+    var docRef = imports.db.collection( "Soil" ).doc( soilType.soil )
+    docRef.get().then( ( doc ) => {
+
+        res.cookie( 'croplist', doc.data().crops );
+
+        req.session.cropsList = doc.data().crops
+
+        req.session.isAuthenticated = true;                                          // flag for autentication
+
+        req.session.save( function () {
+
+            res.redirect( '/dashboard' )
+        } )
+
+    } );
+} )
+
+
+
+
+// router to dashboard 
+router.get( '/dashboard', async function ( req, res ) {
+
+    if ( !req.session.isAuthenticated ) {
+        return res.status( 401 ).render( '401' )
+
+    }
+
+    cropListToDisplay = [];
+    await req.session.cropsList.forEach( async element => {
+
+        var docRef = await imports.db.collection( "crops" ).doc( element )
+        cropData = await docRef.get().then( async ( doc ) => {
+
+            // checking if crop is there if yes storing the data into a array
+            if ( doc.exists ) {
+
+                return { cropName: doc.id };
+            }
+        } )
+
+        if ( cropData != undefined ) {
+
+            console.log( cropData )
+            cropListToDisplay.push( cropData );
+        }
+        // console.log( cropListToDisplay );
+        // res.cookie( 'cropListToDisplay', cropListToDisplay )
+    } );
+
+
+    // console.log( store.getAll() )
+
+    // arr = store.getAll()
+
+    // console.log( 'croplist of soil ', req.cookies.croplist )
+
+
+    // res.render( 'dashboard', cropList = arr )
+} )
+
+
+
 // router to help page
 router.get( "/help", function ( req, res ) {
     res.render( 'help' );
 } )
 
-
-
-// router to weather page
-// router.get( "/weather", function ( req, res ) {
-//     res.render( 'weather' );
-// } )
 
 
 

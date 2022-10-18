@@ -1,6 +1,5 @@
 $( async function () {
 
-    // $( "#btn" ).click( async function () {
 
     zip_code = 600002;
     country_code = 'IN'
@@ -54,4 +53,3 @@ $( async function () {
     console.log( currentWeather.weather[ 0 ].main )
     $( "#marquee" ).text( `Current Weather Condition is ${currentWeather.weather[ 0 ].main}` );
 } )
-// } );

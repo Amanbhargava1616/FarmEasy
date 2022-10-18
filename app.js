@@ -2,6 +2,9 @@ const path = require( 'path' );
 
 const express = require( 'express' );
 
+const cookieParser = require( 'cookie-parser' )
+
+
 // connecting to routing files
 const demoRoutes = require( './routes/demoRoutes' );
 
@@ -38,6 +41,8 @@ app.use( session( {                                                 // to use se
     store: sessionStore                                             // where to store session data
 
 } ) );
+
+app.use( cookieParser() )
 
 
 app.set( 'view engine', 'ejs' );       // Activate ejs engine
