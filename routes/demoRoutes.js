@@ -227,20 +227,21 @@ router.get( '/dashboard', async function ( req, res ) {
 
         if ( crop !== undefined ) {
 
+            store( element, crop )
             console.log( crop )
         }
 
     } );
 
 
-    console.log( store.getAll() )
+    // console.log( store.getAll() )
 
-    // arr = store.getAll()
+    arr = store.getAll()
 
-    // console.log( 'croplist of soil ', req.cookies.croplist )
+    console.log( 'croplist of soil ', req.cookies.croplist )
 
 
-    // res.render( 'dashboard', cropList = arr )
+    res.render( 'dashboard', cropList = arr )
 } )
 
 
