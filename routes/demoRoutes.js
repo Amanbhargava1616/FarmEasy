@@ -212,9 +212,9 @@ router.get( '/dashboard', async function ( req, res ) {
 
     }
 
-    cropListToDisplay = [];
     await req.session.cropsList.forEach( async element => {
 
+        let cropListToDisplay = {};
         var docRef = await imports.db.collection( "crops" ).doc( element )
         cropData = await docRef.get().then( async ( doc ) => {
 
@@ -228,9 +228,9 @@ router.get( '/dashboard', async function ( req, res ) {
         if ( cropData != undefined ) {
 
             console.log( cropData )
-            cropListToDisplay.push( cropData );
+            cropListToDisplay = cropData;
         }
-        // console.log( cropListToDisplay );
+        console.log( cropListToDisplay );
         // res.cookie( 'cropListToDisplay', cropListToDisplay )
     } );
 
