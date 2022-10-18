@@ -258,12 +258,4 @@ router.get( "/help", function ( req, res ) {
 } )
 
 
-
-// router to weather page
-// router.get( "/weather", function ( req, res ) {
-//     res.render( 'weather' );
-// } )
-
-
-
 module.exports = router;
