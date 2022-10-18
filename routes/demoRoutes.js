@@ -6,7 +6,7 @@ var langs = require( 'langs' );
 const store = require( "store2" );
 
 
-const cookieParser = require( 'cookie-parser' )
+// const cookieParser = require( 'cookie-parser' )
 
 
 const router = express.Router();
@@ -214,28 +214,26 @@ router.get( '/dashboard', async function ( req, res ) {
 
     await req.session.cropsList.forEach( async element => {
 
-        let cropListToDisplay = {};
         var docRef = await imports.db.collection( "crops" ).doc( element )
         cropData = await docRef.get().then( async ( doc ) => {
 
             // checking if crop is there if yes storing the data into a array
             if ( doc.exists ) {
 
-                return { cropName: doc.id };
+                return { cropName: doc.id, cropData: doc.data() };
             }
         } )
 
         if ( cropData != undefined ) {
 
-            console.log( cropData )
-            cropListToDisplay = cropData;
+            store( element, cropData )
         }
-        console.log( cropListToDisplay );
-        // res.cookie( 'cropListToDisplay', cropListToDisplay )
+
+
     } );
 
 
-    // console.log( store.getAll() )
+    console.log( store.getAll() )
 
     // arr = store.getAll()
 
