@@ -1,7 +1,7 @@
 $( async function () {
 
 
-    zip_code = 600002;
+    zip_code = 302004;
     country_code = 'IN'
 
     // calculating lat and lon
@@ -48,6 +48,15 @@ $( async function () {
     //     .then( ( data ) => { return data } )
 
     // console.log( 'historyWeather_Step3 =>', historyWeather_Step3 );
+
+
+    $( "#wheatherAlertDiv" ).click( function () {
+        alert( `
+            Temprature: ${currentWeather.main.temp},
+            Speed: ${currentWeather.wind.speed},
+            HUmidity: ${currentWeather.main.humidity}`
+        )
+    } );
 
 
     console.log( currentWeather.weather[ 0 ].main )

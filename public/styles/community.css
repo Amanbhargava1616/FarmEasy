@@ -2,7 +2,8 @@ header,
 footer {
 	display: grid;
 	place-content: center;
-	background-image: linear-gradient(to bottom right, #57cc99, #c7f9cc);
+	background-image: url("/images/communityBg.jpg");
+	background-size: cover;
 	padding: 20px 0 25px;
 }
 
@@ -15,7 +16,6 @@ form {
 }
 
 .row {
-	width: 800px;
 	margin: 0 !important;
 	text-align: center !important;
 }

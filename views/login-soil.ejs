@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('includes/head',{ title : "Login page" }) %>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="/styles/login.css">
+
+        <!-- Boostrap JS -->
+        <script src="/scripts/bootstrap.min.js"></script>
+
+</head>
+
+<body style="background-image: url('/images/soil-background.jpg'); background-size: cover;">
+
+    <%- include('includes/nav-bar') %>
+
+        <form action="/login/soil" method="post" class="form" style="background-color: rgba(255, 255, 255,0.7);">
+            <label for="soil">Choose a Soil Type</label>
+
+            <select name="soil" id="soil">
+                <% for(const soil of soils) { %>
+
+                    <option value="<%= soil.id %>">
+                        <%= soil.id %>
+                    </option>
+
+                    <% } %>
+            </select>
+
+            <button type="submit" id="submit">Submit</button>
+        </form>
+</body>
+<!-- chat bot script -->
+<script type='text/javascript'>
+    ( function ( I, L, T, i, c, k, s ) { if ( I.iticks ) return; I.iticks = { host: c, settings: s, clientId: k, cdn: L, queue: [] }; var h = T.head || T.documentElement; var e = T.createElement( i ); var l = I.location; e.async = true; e.src = ( L || c ) + '/client/inject-v2.min.js'; h.insertBefore( e, h.firstChild ); I.iticks.call = function ( a, b ) { I.iticks.queue.push( [ a, b ] ); }; } )( window, 'https://cdn-v1.intelliticks.com/prod/common', document, 'script', 'https://app.intelliticks.com', 'HQ7atFjXpnh7iwhh8_c', {} );
+</script>
+
+</html>

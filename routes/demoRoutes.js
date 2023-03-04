@@ -1,10 +1,12 @@
 // const { render } = require( 'ejs' );
 const { json } = require( 'express' );
 const express = require( 'express' );
+const { Store } = require( 'express-session' );
+const url = require( 'url' );
 
 var langs = require( 'langs' );
 
-const store = require( "store2" );
+const store = require( "store" );
 
 
 // const cookieParser = require( 'cookie-parser' )
@@ -17,9 +19,16 @@ const router = express.Router();
 const imports = require( '../data/firebaseConfig' );
 
 
+const save_crops = [];
+
+
 // opening Page
 router.get( '/', function ( req, res ) {
-    res.redirect( '/languages' );
+    res.redirect( '/home' );
+} )
+
+router.get( '/home', function ( req, res ) {
+    res.render( 'home' );
 } )
 
 
@@ -159,8 +168,9 @@ router.post( '/community/:question', function ( req, res ) {
 
 
 
-// router for login page
-router.get( '/login', async function ( req, res ) {
+
+// router for login/soil page
+router.get( '/login/soil', async function ( req, res ) {
 
     // reading the data of a questions
     const snapshot2 = await imports.db.collection( 'Soil' )
@@ -174,29 +184,67 @@ router.get( '/login', async function ( req, res ) {
             tempDocSoils.push( { id: doc.id, Data: doc.data() } )
         } )
         console.log( "tempDocSoils =>", tempDocSoils )
-        res.render( 'login', { soils: tempDocSoils } );
+        res.render( 'login-soil', { soils: tempDocSoils } );
     } )
 
 } )
 
 
-// router post method for login page
-router.post( '/login', function ( req, res ) {
+// router post method for login/soil page
+router.post( '/login/soil', function ( req, res ) {
     const soilType = req.body;
     console.log( soilType.soil )
 
     var docRef = imports.db.collection( "Soil" ).doc( soilType.soil )
     docRef.get().then( ( doc ) => {
 
-        res.cookie( 'croplist', doc.data().crops );
+        req.session.isAuthenticated = true;                                          // flag for autentication
 
-        req.session.cropsList = doc.data().crops
+        req.session.save( function () {
+
+            console.log( "/dashboard/" + doc.data().crops.toString() );
+            res.redirect( "/dashboard/" + doc.data().crops.toString() )
+        } )
+
+    } );
+} )
+
+// router for login/land page
+router.get( '/login/land', async function ( req, res ) {
+
+    // reading the data of a questions
+    const snapshot2 = await imports.db.collection( 'land' )
+
+    snapshot2.get().then( ( querySnapshot ) => {
+        const tempDoclands = []
+        querySnapshot.forEach( ( doc ) => {
+            console.log( doc.id, " => ", doc.data() );
+
+            // pushing data in n array
+            tempDoclands.push( { id: doc.id, Data: doc.data() } )
+        } )
+        console.log( "tempDoclands =>", tempDoclands )
+        res.render( 'login-land', { lands: tempDoclands } );
+    } )
+
+} )
+
+
+// router post method for login/land page
+router.post( '/login/land', function ( req, res ) {
+    const landType = req.body;
+    console.log( landType.land )
+
+    var docRef = imports.db.collection( "land" ).doc( landType.land )
+    docRef.get().then( ( doc ) => {
+
 
         req.session.isAuthenticated = true;                                          // flag for autentication
 
         req.session.save( function () {
 
-            res.redirect( '/dashboard' )
+            console.log( "/dashboard/" + doc.data().crops.toString() );
+            res.redirect( "/dashboard/" + doc.data().crops.toString() )
         } )
 
     } );
@@ -206,16 +254,22 @@ router.post( '/login', function ( req, res ) {
 
 
 // router to dashboard 
-router.get( '/dashboard', async function ( req, res ) {
+router.get( '/dashboard/:cropobj', async function ( req, res ) {
+    const cropobj = req.params.cropobj;
+
+    const receivedCrops = cropobj.split( "," );
+
+    console.log( receivedCrops );
+
 
     if ( !req.session.isAuthenticated ) {
         return res.status( 401 ).render( '401' )
 
     }
 
-    await req.session.cropsList.forEach( async element => {
+    var arrOBJ = await Promise.all( receivedCrops.map( async ( element ) => {
 
-        var docRef = await imports.db.collection( "crops" ).doc( element )
+        var docRef = await imports.db.collection( "crops" ).doc( element );
         crop = await docRef.get().then( async ( doc ) => {
 
             // checking if crop is there if yes storing the data into a array
@@ -225,23 +279,16 @@ router.get( '/dashboard', async function ( req, res ) {
             }
         } )
 
-        if ( crop !== undefined ) {
+        return ( crop );
 
-            store( element, crop )
-            console.log( crop )
-        }
-
+    }
+    ) );
+    arrOBJ = arrOBJ.filter( function ( element ) {
+        return element !== undefined;
     } );
 
 
-    // console.log( store.getAll() )
-
-    arr = store.getAll()
-
-    console.log( 'croplist of soil ', req.cookies.croplist )
-
-
-    res.render( 'dashboard', cropList = arr )
+    res.render( 'dashboard', cropList = arrOBJ );
 } )
 
 
@@ -251,7 +298,7 @@ router.get( "/help", function ( req, res ) {
     res.render( 'help' );
 } )
 
-
+router.get("/wheat")
 
 
 module.exports = router;
