@@ -3,6 +3,7 @@ const { json } = require( 'express' );
 const express = require( 'express' );
 const { Store } = require( 'express-session' );
 const url = require( 'url' );
+const readXlsxFile = require( 'read-excel-file/node' )
 
 var langs = require( 'langs' );
 
@@ -251,6 +252,54 @@ router.post( '/login/land', function ( req, res ) {
 } )
 
 
+// router for login/StatesSeasons page
+router.get( '/login/StateSeason', async function ( req, res ) {
+
+    rows = await readXlsxFile( './data/stateCropSeason.xlsx' )
+    const seasons = [ ...new Set( rows.map( ( cropSeasonList ) => {
+        return cropSeasonList[ 2 ];
+    } ) ) ];
+    const states = [ ...new Set( rows.map( ( cropSeasonList ) => {
+        return cropSeasonList[ 0 ];
+    } ) ) ];
+    seasons.shift()
+    states.shift()
+    console.log( states );
+    console.log( seasons );
+
+    res.render( 'login-states-seasons', { seasons: seasons, states: states } );
+
+} )
+
+
+// router for post login/StatesSeasons page
+router.post( "/login/StateSeason", async function ( req, res ) {
+    const seasonOfCrop = req.body.season;
+    const stateOfFarmer = req.body.state;
+
+
+    rows = await readXlsxFile( './data/stateCropSeason.xlsx' )
+    listofcrops = rows.filter( ( row ) => {
+        if ( row[ 0 ] == stateOfFarmer && row[ 2 ] == seasonOfCrop ) {
+            return row;
+        }
+    } )
+
+    listofcrops = [ ...new Set( listofcrops.map( ( cropSeasonList ) => {
+        return cropSeasonList[ 1 ].toLowerCase();
+    } ) ) ];
+
+    req.session.isAuthenticated = true;                                          // flag for autentication
+
+    req.session.save( function () {
+
+        console.log( "/dashboard/" + listofcrops.toString() );
+        res.redirect( "/dashboard/" + listofcrops.toString() )
+    } )
+    // console.log( listofcrops );
+} )
+
+
 
 
 // router to dashboard 
@@ -298,7 +347,9 @@ router.get( "/help", function ( req, res ) {
     res.render( 'help' );
 } )
 
-router.get("/wheat")
+
+
+
 
 
 module.exports = router;
