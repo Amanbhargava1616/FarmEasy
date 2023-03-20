@@ -25,12 +25,9 @@ const save_crops = [];
 
 // opening Page
 router.get( '/', function ( req, res ) {
-    res.redirect( '/home' );
+    res.redirect( '/languages' );
 } )
 
-router.get( '/home', function ( req, res ) {
-    res.render( 'home' );
-} )
 
 
 // router for languages page
@@ -39,6 +36,10 @@ router.get( '/languages', function ( req, res ) {
     console.log( langs.all() )
     res.render( 'languages', { languages: langs.all() } )
 
+} )
+
+router.get( '/home', function ( req, res ) {
+    res.render( 'home' );
 } )
 
 
