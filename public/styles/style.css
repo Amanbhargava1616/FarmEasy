@@ -249,22 +249,6 @@ a {
 	padding: 15px 65px;
 }
 
-/*
-.spell-one{
-    position: absolute;
-   color: white;
-    text-align: center;
-    margin-left: 300px;
-    margin-bottom: 600px;
-}
-
-.spell-two{
-     position: absolute;
-   color: white;
-    text-align: center;
-    
-    margin-bottom: 100px;
-}*/
 
 @media screen and (max-width: 900px) {
 	.navbar-toggler:focus {

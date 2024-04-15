@@ -31,28 +31,10 @@
 
     <%- include('includes/nav-bar') %>
 
-
-        <header class="container" id="header">
-            <div class="row">
-                <a href="/community" target="_blank" rel="noopener noreferrer" class="header_home_link col-6">Farm
-                    Easy</a>
-                <div class="dropdown col-6">
-                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
-                        id="user_btn">
-                        <i class="fas fa-user"></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="tel:+919314077000">93140xxxxx</a></li>
-                        <li><a class="dropdown-item" href="mailto:farmeasy@gmail.com">Mail Us</a></li>
-                    </ul>
-                </div>
-            </div>
-        </header>
-
         <main class="row">
 
             <!-- side bar -->
-            <div class="side_bar col-lg-3">
+            <div class="side_bar col-lg-4">
                 <div class="row">
                     <div class="webpage icon_div" value="https://www.youtube.com/embed/3qjOc_rfFHw">
                         <img src="/images/soil_test_kit.jpg" alt="" srcset="" class="icon_img">
@@ -87,7 +69,7 @@
             </div>
 
             <!-- project section -->
-            <div class="projects_section col-lg-9">
+            <div class="projects_section col-lg-8">
 
                 <iframe src="https://www.youtube.com/embed/3qjOc_rfFHw" title="YouTube video player" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -95,14 +77,17 @@
             </div>
 
         </main>
+        <%- include('includes/footer') %>
 
-        <!-- script -->
-        <script src="/scripts/help.js"></script>
 
-        <!-- chat bot script -->
-        <script type='text/javascript'>
-            ( function ( I, L, T, i, c, k, s ) { if ( I.iticks ) return; I.iticks = { host: c, settings: s, clientId: k, cdn: L, queue: [] }; var h = T.head || T.documentElement; var e = T.createElement( i ); var l = I.location; e.async = true; e.src = ( L || c ) + '/client/inject-v2.min.js'; h.insertBefore( e, h.firstChild ); I.iticks.call = function ( a, b ) { I.iticks.queue.push( [ a, b ] ); }; } )( window, 'https://cdn-v1.intelliticks.com/prod/common', document, 'script', 'https://app.intelliticks.com', 'HQ7atFjXpnh7iwhh8_c', {} );
-        </script>
+            <!-- script -->
+            <script src="scripts/script.js"></script>
+            <script src="/scripts/help.js"></script>
+
+            <!-- chat bot script -->
+            <script type='text/javascript'>
+                ( function ( I, L, T, i, c, k, s ) { if ( I.iticks ) return; I.iticks = { host: c, settings: s, clientId: k, cdn: L, queue: [] }; var h = T.head || T.documentElement; var e = T.createElement( i ); var l = I.location; e.async = true; e.src = ( L || c ) + '/client/inject-v2.min.js'; h.insertBefore( e, h.firstChild ); I.iticks.call = function ( a, b ) { I.iticks.queue.push( [ a, b ] ); }; } )( window, 'https://cdn-v1.intelliticks.com/prod/common', document, 'script', 'https://app.intelliticks.com', 'HQ7atFjXpnh7iwhh8_c', {} );
+            </script>
 </body>
 
 </html>

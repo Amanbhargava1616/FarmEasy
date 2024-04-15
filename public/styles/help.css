@@ -4,13 +4,8 @@ font-family: 'Caveat', cursive;
 font-family: 'Courgette', cursive;
 */
 
-body {
-	background-color: #b3ffb6;
-}
-
 a {
 	text-decoration: none;
-	color: black !important;
 }
 
 /* header */

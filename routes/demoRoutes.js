@@ -172,7 +172,7 @@ router.post( '/community/:question', function ( req, res ) {
 
 
 // router for login/soil page
-router.get( '/login/soil', async function ( req, res ) {
+router.get( '/forecasting/soil', async function ( req, res ) {
 
     // reading the data of a questions
     const snapshot2 = await imports.db.collection( 'Soil' )
@@ -193,7 +193,7 @@ router.get( '/login/soil', async function ( req, res ) {
 
 
 // router post method for login/soil page
-router.post( '/login/soil', function ( req, res ) {
+router.post( '/forecasting/soil', function ( req, res ) {
     const soilType = req.body;
     console.log( soilType.soil )
 
@@ -212,7 +212,7 @@ router.post( '/login/soil', function ( req, res ) {
 } )
 
 // router for login/land page
-router.get( '/login/land', async function ( req, res ) {
+router.get( '/forecasting/land', async function ( req, res ) {
 
     // reading the data of a questions
     const snapshot2 = await imports.db.collection( 'land' )
@@ -233,7 +233,7 @@ router.get( '/login/land', async function ( req, res ) {
 
 
 // router post method for login/land page
-router.post( '/login/land', function ( req, res ) {
+router.post( '/forecasting/land', function ( req, res ) {
     const landType = req.body;
     console.log( landType.land )
 
@@ -254,7 +254,7 @@ router.post( '/login/land', function ( req, res ) {
 
 
 // router for login/StatesSeasons page
-router.get( '/login/StateSeason', async function ( req, res ) {
+router.get( '/forecasting/StateSeason', async function ( req, res ) {
 
     rows = await readXlsxFile( './data/stateCropSeason.xlsx' )
     const seasons = [ ...new Set( rows.map( ( cropSeasonList ) => {
@@ -274,7 +274,7 @@ router.get( '/login/StateSeason', async function ( req, res ) {
 
 
 // router for post login/StatesSeasons page
-router.post( "/login/StateSeason", async function ( req, res ) {
+router.post( "/forecasting/StateSeason", async function ( req, res ) {
     const seasonOfCrop = req.body.season;
     const stateOfFarmer = req.body.state;
 

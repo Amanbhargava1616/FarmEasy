@@ -15,7 +15,7 @@ form {
 	justify-content: center !important;
 }
 
-.row {
+footer .row, header .row {
 	margin: 0 !important;
 	text-align: center !important;
 }
@@ -88,6 +88,4 @@ ul {
 	label {
 		font-size: 1.5rem;
 	}
-}
-@media (max-width: 20rem) {
 }

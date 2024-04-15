@@ -1,17 +1,33 @@
 <script src="/scripts/weather.js" defer></script>
-
-<div class="container-fluid xyz">
-    <div class="row">
-        <marquee id="marquee">
-        </marquee>
+<nav id="navbar" class="navbar nav navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/home">
+            <img class="img-fluid" src="/images/00green-farm.png" alt="">
+            <span class="h2">FarmEasy</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> <i class="bi bi-list"></i> </span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bold">
+                <li class="nav-item fw-bold">
+                    <a class="nav-link btn-one" href="/home#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-one" href="/home#services">Improve Yield</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-one" href="/community">Community</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-one" href="/home#contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-one" href="/help">Help</a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="row " id="navbar">
-        <a class="navLinks" href="/home">Home</a>
-        <a class="navLinks" href="/community">Community</a>
-        <a class="navLinks" href="/help">Help</a>
-        <a class="navLinks" href="/login/soil">Soil Forecasting</a>
-        <a class="navLinks" href="/login/land">Land Forecasting</a>
-        <a class="navLinks" href="/login/StateSeason">State And Season Forecasting</a>
-
-    </div>
-</div>
+    <!-- <marquee id="marquee"></marquee> -->
+</nav>
