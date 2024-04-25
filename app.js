@@ -63,4 +63,6 @@ app.use( function ( error, req, res, next ) {
 } );
 
 
-app.listen( port );
+app.listen( port, () => {
+    console.log( "Server Listing To Port 3000 - http://localhost:3000/home" )
+} );

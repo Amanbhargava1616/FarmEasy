@@ -10,3 +10,7 @@
 ## Start The Project
 
 - npm start
+
+## Open any webrowser and search for
+
+- http://localhost:3000/home
